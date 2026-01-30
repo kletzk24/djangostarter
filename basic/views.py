@@ -6,27 +6,34 @@ from django.utils import timezone
 # Create your views here.
 
 # Computation function
+# Computes the square of the given value.
+# If the square of value has been computed before, it retrieves
+# it from the database. Otherwise it computes the square and 
+# stores it into the database.
+# URL pattern: path('compute/<str:value>', views.compute, name='compute')
 def compute(request, value):
     try:
         input = int(value)
         precomputed = Computed.objects.filter(input=input)
-        if precomputed.count() == 0:  # The answer for this input has not been computed
-            # Compute the answer
+        if precomputed.count() == 0:  # square has not been computed
+            # Compute the square
             answer = input * input
             time_computed = timezone.now()
-            # Save it into the database
+            # Create a Computed object and store it
             computed = Computed(
                 input=input, 
                 output=answer,
                 time_computed=time_computed
             )
-            computed.save() # Store it into the database
+            computed.save() # Saves the object into the database
         else: 
-            computed = precomputed[0] 
+            # Retrieve the precomputed value
+            computed = precomputed.first()
         
+        # Returnthe result page
         return render (
             request,
-            "basic/compute.html",
+            "basic/compute.html", # Template file
             {
                 'input': input,
                 'output': computed.output,
