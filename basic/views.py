@@ -67,9 +67,12 @@ def isprime(request, value):
                 if num != divisors[-1]:
                     result += str(num) + ", "
                 else: 
-                    result += str(num)
+                    result += "and " + str(num)
             # result += ''.join(map(str, divisors))
-            result += " is a divisor"
+            if(len(divisors) > 1):
+                result += " are divisors"
+            else:
+                result += " is a divisor"
 
         # Return the result page
         return render (
