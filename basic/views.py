@@ -60,7 +60,7 @@ def isprime(request, value):
         # check if prime
         if (input <= 1):
             primecheck = False
-            result += str(input) + " is not prime becuase it is not greater than 1"
+            result += str(input) + " is not prime because it is not greater than 1"
         else:
             for num in range(2, input):
                 if (((input/num)%1)==0):
