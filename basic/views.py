@@ -43,50 +43,67 @@ def compute(request, value):
     except:
         raise Http404(f"Invalid input: {value}")
 
+# isprime function
+# checks the given value if the value is prime
+# if the value is prime, it will say so
+# if the value is not prime, it will state it's divisors
+# DOES NOT STORE VALUES
+# URL pattern: path('isprime/<str:value>', views.isprime, name='isprime')
 def isprime(request, value):
     try:
-        input = int(value)
-        primecheck = True
-        divisors = []
-        result = ""
+        # initiate variables
+        input = int(value) # inputted value
+        primecheck = True # prime flag
+        divisors = [] # list of collected divisors
+        result = "" # string to be built
 
+        # check if prime
         for num in range(2, input):
             if (((input/num)%1)==0):
                 primecheck = False
-            # else:
                 divisors.append(num)
         
-        time_computed = timezone.now()
+        # initiate a new variable
+        time_computed = timezone.now() # records when the result was completed
 
+        # build string message for output
         if (primecheck):
-            result += str(input)
-            result += " is a prime number since it has no divisors"
+            # value is prime
+            result += str(input) + " is a prime number since it has no divisors"
         else:
+            # value is not prime
             result += str(input) + " is not a prime number since "
-            if(len(divisors) > 1):
+            
+            if (len(divisors) == 1):
+                # special case for 1 divisor, no plural grammer
+                result += str(divisors[0]) + " is a divisor"
+
+            if (len(divisors) == 2):
+                # special case for 2 divisors, puts 'and' between two divisors
+                result += str(divisors[0]) + " and " + str(divisors[1]) + " are divisors"
+
+            else:
+                # standard case, will have a grammer's list format
                 for num in divisors:
                     if num != divisors[-1]:
+                        # normal commas for list
                         result += str(num) + ", "
-                    else: 
-                        result += "and " + str(num)
-                # result += ''.join(map(str, divisors))
 
-                #if(len(divisors) > 1):
+                    else: 
+                        # no comma and ends in and for last divisor
+                        result += "and " + str(num)
+
                 result += " are divisors"
-                #else:
-                #    result += " is a divisor"
-            else:
-                result += str(divisors[0]) + "is a divisor"
 
 
         # Return the result page
         return render (
             request,
-            "basic/isprime.html", # Template html file; contains placeholders for output
+            "basic/isprime.html",
             {
                 'input': input,
                 'output': result,
-                'time_computed': time_computed.strftime("%m-%d-%Y %H:%M:%S UTC")# result.time_computed.strftime("%m-%d-%Y %H:%M:%S UTC")
+                'time_computed': time_computed.strftime("%m-%d-%Y %H:%M:%S UTC")
             }
         )
     except:
