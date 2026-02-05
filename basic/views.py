@@ -78,7 +78,7 @@ def isprime(request, value):
                 # special case for 1 divisor, no plural grammer
                 result += str(divisors[0]) + " is a divisor"
 
-            if (len(divisors) == 2):
+            elif (len(divisors) == 2):
                 # special case for 2 divisors, puts 'and' between two divisors
                 result += str(divisors[0]) + " and " + str(divisors[1]) + " are divisors"
 
