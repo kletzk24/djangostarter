@@ -68,7 +68,7 @@ def isprime(request, value):
                     divisors.append(num)
         
             # initiate a new variable
-            time_computed = timezone.now() # records when the result was completed
+            #time_computed = timezone.now() # records when the result was completed
 
             # build string message for output
             if (primecheck):
@@ -107,7 +107,7 @@ def isprime(request, value):
             {
                 'input': input,
                 'output': result,
-                'time_computed': time_computed.strftime("%m-%d-%Y %H:%M:%S UTC")
+                #'time_computed': time_computed.strftime("%m-%d-%Y %H:%M:%S UTC")
             }
         )
     except:
