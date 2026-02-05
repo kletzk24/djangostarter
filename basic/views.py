@@ -58,42 +58,46 @@ def isprime(request, value):
         result = "" # string to be built
 
         # check if prime
-        for num in range(2, input):
-            if (((input/num)%1)==0):
-                primecheck = False
-                divisors.append(num)
-        
-        # initiate a new variable
-        time_computed = timezone.now() # records when the result was completed
-
-        # build string message for output
-        if (primecheck):
-            # value is prime
-            result += str(input) + " is a prime number since it has no divisors"
+        if (input <= 1):
+            primecheck = False
+            result += str(input) + " is not prime becuase it is not greater than 1"
         else:
-            # value is not prime
-            result += str(input) + " is not a prime number since "
-            
-            if (len(divisors) == 1):
-                # special case for 1 divisor, no plural grammer
-                result += str(divisors[0]) + " is a divisor"
+            for num in range(2, input):
+                if (((input/num)%1)==0):
+                    primecheck = False
+                    divisors.append(num)
+        
+            # initiate a new variable
+            time_computed = timezone.now() # records when the result was completed
 
-            elif (len(divisors) == 2):
-                # special case for 2 divisors, puts 'and' between two divisors
-                result += str(divisors[0]) + " and " + str(divisors[1]) + " are divisors"
-
+            # build string message for output
+            if (primecheck):
+                # value is prime
+                result += str(input) + " is a prime number since it has no divisors"
             else:
-                # standard case, will have a grammer's list format
-                for num in divisors:
-                    if num != divisors[-1]:
-                        # normal commas for list
-                        result += str(num) + ", "
+                # value is not prime
+                result += str(input) + " is not a prime number since "
+                
+                if (len(divisors) == 1):
+                    # special case for 1 divisor, no plural grammer
+                    result += str(divisors[0]) + " is a divisor"
 
-                    else: 
-                        # no comma and ends in and for last divisor
-                        result += "and " + str(num)
+                elif (len(divisors) == 2):
+                    # special case for 2 divisors, puts 'and' between two divisors
+                    result += str(divisors[0]) + " and " + str(divisors[1]) + " are divisors"
 
-                result += " are divisors"
+                else:
+                    # standard case, will have a grammer's list format
+                    for num in divisors:
+                        if num != divisors[-1]:
+                            # normal commas for list
+                            result += str(num) + ", "
+
+                        else: 
+                            # no comma and ends in and for last divisor
+                            result += "and " + str(num)
+
+                    result += " are divisors"
 
 
         # Return the result page
