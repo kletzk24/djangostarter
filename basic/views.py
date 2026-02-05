@@ -43,5 +43,36 @@ def compute(request, value):
     except:
         raise Http404(f"Invalid input: {value}")
 
+def isprime(request, value):
+    try:
+        input = int(value)
+        primecheck = False
+        divisors = []
+        result = ""
 
+        for num in range(2, input):
+            if (((input/num)%1)==0):
+                primecheck = True
+            else:
+                divisors.append(num)
+        
+        time_computed = timezone.now()
+
+        if (primecheck):
+            result = input + " is a prime number since it has no divisors"
+        else:
+            result = input + " is not a prime number since ".join(map(str, divisors)) + " is a divisor"
+
+        # Return the result page
+        return render (
+            request,
+            "basic/isprime.html", # Template html file; contains placeholders for output
+            {
+                'input': input,
+                'output': result,
+                'time_computed': result.time_computed.strftime("%m-%d-%Y %H:%M:%S UTC")
+            }
+        )
+    except:
+        raise Http404(f"Invalid input: {value}")
     
