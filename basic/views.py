@@ -46,13 +46,13 @@ def compute(request, value):
 def isprime(request, value):
     try:
         input = int(value)
-        primecheck = False
+        primecheck = True
         divisors = []
         result = ""
 
         for num in range(2, input):
             if (((input/num)%1)==0):
-                primecheck = True
+                primecheck = False
             else:
                 divisors.append(num)
         
