@@ -70,7 +70,7 @@ def isprime(request, value):
             {
                 'input': input,
                 'output': result,
-                'time_computed': result.time_computed.strftime("%m-%d-%Y %H:%M:%S UTC")
+                'time_computed': time_computed.strftime("%m-%d-%Y %H:%M:%S UTC")# result.time_computed.strftime("%m-%d-%Y %H:%M:%S UTC")
             }
         )
     except:
