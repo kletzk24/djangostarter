@@ -53,7 +53,7 @@ def isprime(request, value):
         for num in range(2, input):
             if (((input/num)%1)==0):
                 primecheck = False
-            else:
+            # else:
                 divisors.append(num)
         
         time_computed = timezone.now()
