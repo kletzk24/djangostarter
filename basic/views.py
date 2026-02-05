@@ -48,7 +48,7 @@ def isprime(request, value):
         input = int(value)
         primecheck = True
         divisors = []
-        #result = ""
+        result = ""
 
         for num in range(2, input):
             if (((input/num)%1)==0):
@@ -59,9 +59,10 @@ def isprime(request, value):
         time_computed = timezone.now()
 
         if (primecheck):
-            result += input + " is a prime number since it has no divisors"
+            result += str(input)
+            result += " is a prime number since it has no divisors"
         else:
-            result += input + " is not a prime number since ".join(map(str, divisors)) + " is a divisor"
+            result += str(input) + " is not a prime number since ".join(map(str, divisors)) + " is a divisor"
 
         # Return the result page
         return render (
