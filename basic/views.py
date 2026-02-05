@@ -48,7 +48,7 @@ def isprime(request, value):
         input = int(value)
         primecheck = True
         divisors = []
-        result = ""
+        #result = ""
 
         for num in range(2, input):
             if (((input/num)%1)==0):
