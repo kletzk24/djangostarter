@@ -63,16 +63,21 @@ def isprime(request, value):
             result += " is a prime number since it has no divisors"
         else:
             result += str(input) + " is not a prime number since "
-            for num in divisors:
-                if num != divisors[-1]:
-                    result += str(num) + ", "
-                else: 
-                    result += "and " + str(num)
-            # result += ''.join(map(str, divisors))
             if(len(divisors) > 1):
+                for num in divisors:
+                    if num != divisors[-1]:
+                        result += str(num) + ", "
+                    else: 
+                        result += "and " + str(num)
+                # result += ''.join(map(str, divisors))
+
+                #if(len(divisors) > 1):
                 result += " are divisors"
+                #else:
+                #    result += " is a divisor"
             else:
-                result += " is a divisor"
+                result += str(divisors[0]) + "is a divisor"
+
 
         # Return the result page
         return render (
