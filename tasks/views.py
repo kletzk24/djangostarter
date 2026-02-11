@@ -6,7 +6,7 @@ from .models import Task
 def listtasks(request, project):
     tasks = Task.objects.filter(project__name=project)
 
-    return render (request, "tasks.listtasks.html", {
+    return render (request, "tasks/listtasks.html", {
         'project': project,
         'tasks': tasks
     })
