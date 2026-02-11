@@ -1,0 +1,16 @@
+<html>
+    <head></head>
+
+    <body>
+
+        the tasks within project {{project}} are as follows
+
+        <ol>
+
+            {% for tasks in tasks %}
+                <li> {{tasks.description}}</li>
+            {% endfor %}
+        </ol>
+
+    </body>
+</html>
