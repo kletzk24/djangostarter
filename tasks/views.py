@@ -17,7 +17,7 @@ def listnotifications(request, member):
     try:
         notifications = Member.objects.filter(username=member)[0].notification_set.all()
 
-        if notifications.length > 0:
+        if len(notifications) > 0:
             return render(request, "tasks/listnotifications.html", {
                 'member': member,
                 'output': 1,
