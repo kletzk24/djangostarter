@@ -6,7 +6,9 @@
     <body>
 
         {% if output == 1 %}
-            <h> notifications for {{member}} are as follows </h>
+            <p style="margin-left: 25px;"> 
+                Notifications for <b>{{member}}</b> are as follows: 
+            </p>
 
             <ol>
                 {% for notification in notifications %}
@@ -14,9 +16,13 @@
                 {% endfor %}
             </ol>
         {% elif output == 2 %}
-            <h> there are no notifcations for {{member}} currently </h>
+            <p> 
+                There are no notifcations for <b>{{member}}</b> currently 
+            </p>
         {% elif output == 3 %}
-            <h> a member with the name {{member}} does not exist </h>
+            <p> 
+                A member with the name <b>{{member}}</b> does not exist 
+            </p>
         {% endif %}
 
     </body>
