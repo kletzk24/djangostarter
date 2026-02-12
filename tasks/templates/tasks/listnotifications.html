@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <h1>Notification Dashboard</h1>
+    </head>
+
+    <body>
+
+        {% if output == 1 %}
+            <h> notifications for {{member}} are as follows </h>
+
+            <ol>
+                {% for notification in notifications %}
+                    <li> {{notification.message}}</li>
+                {% endfor %}
+            </ol>
+        {% elif output == 2 %}
+            <h> there are no notifcations for {{member}} currently </h>
+        {% elif output == 3 %}
+            <h> a member with the name {{member}} does not exist </h>
+        {% endif %}
+
+    </body>
+</html>
