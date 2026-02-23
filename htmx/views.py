@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_POST
+from django.http import HttpResponse
 import random
-from tasks.models import Project, Task
+from tasks.models import Project, Task, Member
+#from tasks.views import listtasks, listnotifications
 
 # Read the URLs for NASA images
 imageurls = open("static/nasa_imageurls").readlines()
@@ -117,3 +119,43 @@ def jsresponse(request):
     return render(request, "htmx/partials/times.html",{
         'answer': answer
     }) 
+
+def tasksnoti(request):
+    if request.method == "GET":
+        return render(request, "htmx/assignment.html", {})
+    
+    else:
+        output = ""
+        memberID = request.POST['memberID']
+        typeTN = request.POST['typeTN']
+        try:
+            if (typeTN == 'Tasks'):
+                taskList = Task.objects.filter(assignee__username=memberID)
+
+                if(len(taskList) > 0):
+                    output = f"Tasks for {memberID} are as follows"
+
+                    for task in taskList:
+                        output += "<br>" + task.description + " in project " + task.project.name
+
+                else:
+                    output += "There are no tasks for " + memberID
+            else:
+                notiList = Member.objects.filter(username=memberID)[0].notification_set.all()
+
+                if(len(notiList) > 0):
+                    output = f"Notifications for {memberID} are as follows"
+
+                    for noti in notiList:
+                        output += "<br>" + noti.message
+
+                else:
+                    output += "There are no notifications for " + memberID
+            
+        except:
+            output = f"Member {memberID} does not exist"
+        
+        return HttpResponse(output, {})
+
+#def notifications(request):
+#    return 5

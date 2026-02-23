@@ -1,4 +1,5 @@
 from django.urls import path
+#from tasks.views import listtasks, listnotifications
 
 from . import views
 
@@ -25,6 +26,9 @@ urlpatterns = [
     path('tasks4project/', views.tasks4project, name='tasks4project' ),
 
     path("jsdemo", views.jsdemo, name="jsdemo"),
-    path("response", views.jsresponse, name="response")
+    path("response", views.jsresponse, name="response"),
+
+    # Assignment here
+    path("assignment", views.tasksnoti, name="assignment")
 
 ]
