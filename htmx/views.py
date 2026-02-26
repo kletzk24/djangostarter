@@ -128,32 +128,37 @@ def tasksnoti(request):
         output = ""
         memberID = request.POST['memberID']
         typeTN = request.POST['typeTN']
-        try:
-            if (typeTN == 'Tasks'):
-                taskList = Task.objects.filter(assignee__username=memberID)
+        if (str(memberID).strip() == ""):
+            output += "Please type a valid team member name in the box above"
+        else:
+            try:
+                if (typeTN == 'Tasks'):
+                    taskList = Task.objects.filter(assignee__username=memberID)
+                    # exists Check is only used to see if user does not exist (intentinal fail)
+                    existsCheck = notiList = Member.objects.filter(username=memberID)[0].notification_set.all()
 
-                if(len(taskList) > 0):
-                    output = f"Tasks for {memberID} are as follows"
+                    if(len(taskList) > 0):
+                        output = f"Tasks for team member {memberID} are as follows"
 
-                    for task in taskList:
-                        output += "<br>" + task.description + " in project " + task.project.name
+                        for task in taskList:
+                            output += "<br>" + task.description + " in project " + task.project.name
 
+                    else:
+                        output += "There are no tasks for team member " + memberID
                 else:
-                    output += "There are no tasks for " + memberID
-            else:
-                notiList = Member.objects.filter(username=memberID)[0].notification_set.all()
+                    notiList = Member.objects.filter(username=memberID)[0].notification_set.all()
 
-                if(len(notiList) > 0):
-                    output = f"Notifications for {memberID} are as follows"
+                    if(len(notiList) > 0):
+                        output = f"Notifications for team member {memberID} are as follows"
 
-                    for noti in notiList:
-                        output += "<br>" + noti.message
+                        for noti in notiList:
+                            output += "<br>" + noti.message
 
-                else:
-                    output += "There are no notifications for " + memberID
-            
-        except:
-            output = f"Member {memberID} does not exist"
+                    else:
+                        output += "There are no notifications for team member " + memberID
+                
+            except:
+                output = f"Team member with the name {memberID} does not exist"
         
         return HttpResponse(output, {})
 
